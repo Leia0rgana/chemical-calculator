@@ -1,31 +1,22 @@
 import { useState } from 'react'
-import axios from 'axios'
+import { useGetElementBySymbolMutation } from '../redux/elementsApi'
 
 const EquationForm = () => {
   const [inputValue, setInputValue] = useState('')
   const [result, setResult] = useState('')
-  const [error, setError] = useState(false)
+
+  const [getElementBySymbol, { isLoading, error }] =
+    useGetElementBySymbolMutation()
 
   const handleSubmit = async (e) => {
     setResult('')
-    setError(false)
-
     e.preventDefault()
-    setInputValue('')
 
-    await getElement(inputValue)
-      .then((res) => setResult(res))
-      .catch((error) => {
-        console.log(error.message)
-        setError(true)
-      })
-  }
-
-  const getElement = async (elementSymbol) => {
-    const response = await axios.post('http://localhost:3000/', {
-      symbol: elementSymbol,
-    })
-    return response.data
+    await getElementBySymbol({ symbol: inputValue })
+      .unwrap()
+      .then((payload) => setResult(payload))
+      .catch((error) => console.log(error.status, error.data))
+      .finally(setInputValue(''))
   }
 
   return (
@@ -40,14 +31,19 @@ const EquationForm = () => {
         />
         <button type="submit">Уравнять</button>
       </form>
-      {result && (
-        <>
-          <h2>{result.name}</h2>
-          <p>Обозначение: {result.symbol}</p>
-          <p>Номер: {result.number}</p>
-        </>
+      {isLoading ? (
+        <h2>Loading...</h2>
+      ) : error ? (
+        <h2>{`Error: ${error.data}`}</h2>
+      ) : (
+        result && (
+          <>
+            <h2>{result.name}</h2>
+            <p>Обозначение: {result.symbol}</p>
+            <p>Номер: {result.number}</p>
+          </>
+        )
       )}
-      {error && <h2>Something went wrong</h2>}
     </>
   )
 }
