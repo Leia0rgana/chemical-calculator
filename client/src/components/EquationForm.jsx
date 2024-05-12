@@ -14,40 +14,37 @@ const EquationForm = () => {
     setInputValue('')
 
     await getElement(inputValue)
-      .then((newResult) => setResult(newResult))
-      .catch(() => setError(true))
+      .then((res) => setResult(res))
+      .catch((error) => {
+        console.log(error.message)
+        setError(true)
+      })
   }
 
   const getElement = async (elementSymbol) => {
-    try {
-      const response = await axios.post('http://localhost:3000/', {
-        symbol: elementSymbol,
-      })
-      return response.data
-    } catch (error) {
-      throw new Error(error.message)
-    }
+    const response = await axios.post('http://localhost:3000/', {
+      symbol: elementSymbol,
+    })
+    return response.data
   }
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label>
-          Уравнение реакции
-          <input
-            type="text"
-            name="equation"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-        </label>
+        <label>Уравнение реакции </label>
+        <input
+          type="text"
+          name="equation"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
         <button type="submit">Уравнять</button>
       </form>
       {result && (
         <>
           <h2>{result.name}</h2>
-          <p>Symbol: {result.symbol}</p>
-          <p>Atomic Mass: {result.atomic_mass}</p>
+          <p>Обозначение: {result.symbol}</p>
+          <p>Номер: {result.number}</p>
         </>
       )}
       {error && <h2>Something went wrong</h2>}
