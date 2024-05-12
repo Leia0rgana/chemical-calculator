@@ -1,0 +1,17 @@
+.table {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.element {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.element p {
+  margin: 0 0;
+}
