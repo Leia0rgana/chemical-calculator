@@ -1,8 +1,15 @@
 import { useState } from 'react'
 import { useGetElementBySymbolMutation } from '../redux/elementsApi'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  selectElementSymbol,
+  setElementSymbol,
+} from '../redux/slices/elementSlice'
 
 const EquationForm = () => {
-  const [inputValue, setInputValue] = useState('')
+  const dispatch = useDispatch()
+  const elementSymbol = useSelector(selectElementSymbol)
+
   const [result, setResult] = useState('')
 
   const [getElementBySymbol, { isLoading, error }] =
@@ -11,12 +18,10 @@ const EquationForm = () => {
   const handleSubmit = async (e) => {
     setResult('')
     e.preventDefault()
-
-    await getElementBySymbol({ symbol: inputValue })
+    await getElementBySymbol({ symbol: elementSymbol })
       .unwrap()
       .then((payload) => setResult(payload))
       .catch((error) => console.log(error.status, error.data))
-      .finally(setInputValue(''))
   }
 
   return (
@@ -26,8 +31,8 @@ const EquationForm = () => {
         <input
           type="text"
           name="equation"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          value={elementSymbol}
+          onChange={(e) => dispatch(setElementSymbol(e.target.value))}
         />
         <button type="submit">Уравнять</button>
       </form>
