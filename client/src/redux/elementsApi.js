@@ -11,7 +11,7 @@ export const elementsApi = createApi({
     }),
     getElementBySymbol: build.mutation({
       query: (body) => ({
-        url: ``,
+        url: '',
         method: 'POST',
         body,
       }),
