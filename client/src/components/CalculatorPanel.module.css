@@ -1,0 +1,11 @@
+.table {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.symbol {
+  border: 1px solid #ccc;
+  padding: 5px;
+}

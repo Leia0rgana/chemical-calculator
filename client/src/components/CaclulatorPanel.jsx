@@ -1,0 +1,71 @@
+import styles from './CalculatorPanel.module.css'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  selectEquation,
+  selectIsActiveEqualizeBtn,
+  setEquation,
+  resetEquation,
+  removeSymbol,
+  toggleEqualizeBtn,
+  resetBalancedEquation,
+} from '../redux/slices/equationSlice'
+
+const DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '(', ')', '+', '=']
+
+const CaclulatorPanel = () => {
+  const equation = useSelector(selectEquation)
+  const isActiveEqualizeBtn = useSelector(selectIsActiveEqualizeBtn)
+  const dispatch = useDispatch()
+
+  const isValidInput = (symbol) => {
+    if (equation) {
+      if (
+        symbol.toString().match(/[()+=]/g) &&
+        equation.slice(-1).match(/[()+=]/g)
+      )
+        return false
+      else return true
+    } else {
+      if (!symbol.match(/[a-z]/i)) return false
+      else return true
+    }
+  }
+
+  const handleSymbolBtnClick = (symbol) => {
+    if (isValidInput(symbol)) {
+      dispatch(setEquation(symbol))
+      !isActiveEqualizeBtn && dispatch(toggleEqualizeBtn())
+    } else return
+  }
+
+  const handleClearBtnClick = () => {
+    dispatch(resetEquation())
+    dispatch(resetBalancedEquation())
+    isActiveEqualizeBtn && dispatch(toggleEqualizeBtn())
+  }
+
+  const handleRemoveBtnClick = () => {
+    dispatch(removeSymbol())
+    equation.length === 1 && dispatch(toggleEqualizeBtn())
+  }
+
+  return (
+    <>
+      <div className={styles.table}>
+        {DATA.map((symbol, index) => (
+          <button
+            className={styles.symbol}
+            key={index}
+            onClick={() => handleSymbolBtnClick(symbol)}
+          >
+            {symbol}
+          </button>
+        ))}
+      </div>
+      <button onClick={handleClearBtnClick}>Clear</button>
+      <button onClick={handleRemoveBtnClick}>Remove</button>
+    </>
+  )
+}
+
+export default CaclulatorPanel
