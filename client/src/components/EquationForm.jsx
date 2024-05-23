@@ -1,51 +1,63 @@
-import { useState } from 'react'
-import { useGetElementBySymbolMutation } from '../redux/elementsApi'
+// import styles from './EquationForm.module.css'
+import { useGetEquationMutation } from '../redux/elementsApi'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  selectElementSymbol,
-  setElementSymbol,
-} from '../redux/slices/elementSlice'
+  selectEquation,
+  selectIsActiveEqualizeBtn,
+  selectBalancedEquation,
+  resetEquation,
+  removeSymbol,
+  setBalancedEquation,
+  resetBalancedEquation,
+} from '../redux/slices/equationSlice'
 
 const EquationForm = () => {
+  const equation = useSelector(selectEquation)
+  const isActiveEqualizeBtn = useSelector(selectIsActiveEqualizeBtn)
+  const balancedEquation = useSelector(selectBalancedEquation)
   const dispatch = useDispatch()
-  const elementSymbol = useSelector(selectElementSymbol)
 
-  const [result, setResult] = useState('')
-
-  const [getElementBySymbol, { isLoading, error }] =
-    useGetElementBySymbolMutation()
+  const [getEquation, { isLoading, error }] = useGetEquationMutation()
 
   const handleSubmit = async (e) => {
-    setResult('')
+    dispatch(resetBalancedEquation())
+    dispatch(resetEquation())
     e.preventDefault()
-    await getElementBySymbol({ symbol: elementSymbol })
+
+    await getEquation({ equation: equation })
       .unwrap()
-      .then((payload) => setResult(payload))
+      .then((payload) => dispatch(setBalancedEquation(payload.outChem)))
       .catch((error) => console.log(error.status, error.data))
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Backspace' && equation) dispatch(removeSymbol()) //TODO
   }
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label>Уравнение реакции </label>
+        <label>Химическая реакция </label>
         <input
           type="text"
           name="equation"
-          value={elementSymbol}
-          onChange={(e) => dispatch(setElementSymbol(e.target.value))}
+          value={equation}
+          readOnly={true}
+          onKeyDown={handleKeyDown}
         />
-        <button type="submit">Уравнять</button>
+        <button disabled={isActiveEqualizeBtn ? null : 'disabled'}>
+          {' '}
+          Уравнять
+        </button>
       </form>
       {isLoading ? (
         <h2>Loading...</h2>
       ) : error ? (
         <h2>{`Error: ${error.data}`}</h2>
       ) : (
-        result && (
+        balancedEquation && (
           <>
-            <h2>{result.name}</h2>
-            <p>Обозначение: {result.symbol}</p>
-            <p>Номер: {result.number}</p>
+            <h2>{balancedEquation}</h2>
           </>
         )
       )}
