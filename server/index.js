@@ -43,13 +43,28 @@ app.get('/', async (req, res) => {
   }
 })
 
+// app.post('/', async (req, res) => {
+//   try {
+//     const equation = req.body.symbol
+//     const element = await collection.findOne({ symbol: equation })
+//     if (element) {
+//       return res.status(StatusCodes.OK).send(element)
+//     } else if (element === null) {
+//       return res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND)
+//     }
+//   } catch (error) {
+//     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(error.message)
+//   }
+// })
+
 app.post('/', async (req, res) => {
   try {
-    const elementName = req.body.symbol
-    const element = await collection.findOne({ symbol: elementName })
-    if (element) {
-      return res.status(StatusCodes.OK).send(element)
-    } else if (element === null) {
+    const equation = req.body.equation
+    const balancedEquation = balanceEq(equation)
+
+    if (balancedEquation.outChem) {
+      return res.status(StatusCodes.OK).send(balancedEquation)
+    } else {
       return res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND)
     }
   } catch (error) {
