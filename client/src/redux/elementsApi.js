@@ -9,7 +9,7 @@ export const elementsApi = createApi({
     getElements: build.query({
       query: () => '',
     }),
-    getElementBySymbol: build.mutation({
+    getEquation: build.mutation({
       query: (body) => ({
         url: '',
         method: 'POST',
@@ -19,5 +19,4 @@ export const elementsApi = createApi({
   }),
 })
 
-export const { useGetElementsQuery, useGetElementBySymbolMutation } =
-  elementsApi
+export const { useGetElementsQuery, useGetEquationMutation } = elementsApi
