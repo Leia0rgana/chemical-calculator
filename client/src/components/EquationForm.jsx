@@ -1,4 +1,4 @@
-// import styles from './EquationForm.module.css'
+import styles from './EquationForm.module.css'
 import { useGetEquationMutation } from '../redux/elementsApi'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -24,7 +24,7 @@ const EquationForm = () => {
     dispatch(resetEquation())
     e.preventDefault()
 
-    await getEquation({ equation: equation })
+    await getEquation({ equation: equation }) //запрос на балансировку реакции
       .unwrap()
       .then((payload) => dispatch(setBalancedEquation(payload.outChem)))
       .catch((error) => console.log(error.status, error.data))
@@ -36,16 +36,19 @@ const EquationForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label>Химическая реакция </label>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <input
+          className={styles.input}
           type="text"
           name="equation"
           value={equation}
           readOnly={true}
           onKeyDown={handleKeyDown}
         />
-        <button disabled={isActiveEqualizeBtn ? null : 'disabled'}>
+        <button
+          className={styles.button}
+          disabled={isActiveEqualizeBtn ? null : 'disabled'}
+        >
           {' '}
           Уравнять
         </button>
