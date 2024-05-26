@@ -5,11 +5,13 @@ import './index.css'
 import { Provider } from 'react-redux'
 import store from './redux/store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import ErrorPage from './components/routes/ErrorPage.jsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Menu />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
