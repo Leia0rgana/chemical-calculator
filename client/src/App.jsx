@@ -6,9 +6,11 @@ import CaclulatorPanel from './components/CaclulatorPanel'
 function App() {
   return (
     <div className="App">
-      <EquationForm />
-      <CaclulatorPanel />
-      <Table />
+      <div className="container">
+        <EquationForm />
+        <CaclulatorPanel />
+        <Table />
+      </div>
     </div>
   )
 }
