@@ -1,11 +1,14 @@
 .table {
   display: flex;
+  width: 100%;
   flex-wrap: nowrap;
   justify-content: space-between;
   margin: 10px 0;
 }
 
-.symbol {
+.tableItem {
   border: 1px solid #ccc;
   padding: 5px;
+  margin: 5px;
+  font-size: 0.9rem;
 }

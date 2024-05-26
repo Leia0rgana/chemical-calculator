@@ -1,5 +1,7 @@
 import styles from './CalculatorPanel.module.css'
 import { useDispatch, useSelector } from 'react-redux'
+import { RiDeleteBack2Line } from 'react-icons/ri'
+import { GrPowerReset } from 'react-icons/gr'
 import {
   selectEquation,
   selectIsActiveEqualizeBtn,
@@ -10,7 +12,7 @@ import {
   resetBalancedEquation,
 } from '../redux/slices/equationSlice'
 
-const DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '(', ')', '+', '=']
+const DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '+', '=']
 
 const CaclulatorPanel = () => {
   const equation = useSelector(selectEquation)
@@ -19,10 +21,7 @@ const CaclulatorPanel = () => {
 
   const isValidInput = (symbol) => {
     if (equation) {
-      if (
-        symbol.toString().match(/[()+=]/g) &&
-        equation.slice(-1).match(/[()+=]/g)
-      )
+      if (symbol.toString().match(/[+=]/g) && equation.slice(-1).match(/[+=]/g))
         return false
       else return true
     } else {
@@ -30,7 +29,6 @@ const CaclulatorPanel = () => {
       else return true
     }
   }
-
   const handleSymbolBtnClick = (symbol) => {
     if (isValidInput(symbol)) {
       dispatch(setEquation(symbol))
@@ -50,21 +48,23 @@ const CaclulatorPanel = () => {
   }
 
   return (
-    <>
-      <div className={styles.table}>
-        {DATA.map((symbol, index) => (
-          <button
-            className={styles.symbol}
-            key={index}
-            onClick={() => handleSymbolBtnClick(symbol)}
-          >
-            {symbol}
-          </button>
-        ))}
-      </div>
-      <button onClick={handleClearBtnClick}>Clear</button>
-      <button onClick={handleRemoveBtnClick}>Remove</button>
-    </>
+    <div className={styles.table}>
+      {DATA.map((symbol, index) => (
+        <button
+          className={styles.tableItem}
+          key={index}
+          onClick={() => handleSymbolBtnClick(symbol)}
+        >
+          {symbol}
+        </button>
+      ))}
+      <button className={styles.tableItem} onClick={handleClearBtnClick}>
+        <GrPowerReset />
+      </button>
+      <button className={styles.tableItem} onClick={handleRemoveBtnClick}>
+        <RiDeleteBack2Line />
+      </button>
+    </div>
   )
 }
 
