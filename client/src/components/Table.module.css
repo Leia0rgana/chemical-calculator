@@ -1,8 +1,10 @@
 .table {
   display: grid;
   grid-template-columns: repeat(18, 1fr);
+  grid-template-rows: repeat(9, 1fr);
   gap: 5px;
   margin: 10px 0;
+  width: fit-content;
 }
 
 .element {
@@ -10,8 +12,5 @@
   padding: 5px;
   border-radius: 5px;
   background-color: #f9f9f9;
-}
-
-.element p {
-  margin: 0 0;
+  font-size: 0.9rem;
 }
