@@ -1,7 +1,7 @@
 import styles from './Table.module.css'
 import { useGetElementsQuery } from '../redux/elementsApi'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { ImSpinner2 } from 'react-icons/im'
 import {
   setEquation,
   toggleEqualizeBtn,
@@ -18,8 +18,8 @@ for (let i = 89; i <= 103; i += 1) {
   lanthanoidAndActinoid.push(i)
 }
 
-const Table = () => {
-  const { data, isLoading, error } = useGetElementsQuery()
+const Table = ({ isExtended }) => {
+  const { data, isLoading } = useGetElementsQuery()
   const isActiveEqualizeBtn = useSelector(selectIsActiveEqualizeBtn)
   const dispatch = useDispatch()
 
@@ -43,11 +43,11 @@ const Table = () => {
 
   return (
     <div className={styles.table}>
-      {error ? (
-        <h2>{error.error}</h2>
-      ) : isLoading ? (
-        <h2>Loading...</h2>
+      {isLoading ? (
+        // <div className={styles.spinnerContainer}>
+        <ImSpinner2 className="spinner" />
       ) : (
+        // </div>
         data &&
         data.map((element) => {
           return (
@@ -61,8 +61,18 @@ const Table = () => {
               )}
               onClick={() => handleClick(element.symbol)}
             >
-              <div>{element.number}</div>
-              <div>{element.symbol}</div>
+              {isExtended ? (
+                <>
+                  <div>{element.number}</div>
+                  <div>{element.symbol}</div>
+                  <div>{parseFloat(element.atomic_mass).toFixed(2)}</div>
+                </>
+              ) : (
+                <>
+                  <div>{element.number}</div>
+                  <div>{element.symbol}</div>
+                </>
+              )}
             </button>
           )
         })
