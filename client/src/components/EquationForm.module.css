@@ -15,3 +15,9 @@
   width: auto;
   font-size: 0.9rem;
 }
+
+.equations {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}

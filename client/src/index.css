@@ -1,12 +1,63 @@
-body {
-  margin: 0;
+* {
+  font-family: 'El Messiri', sans-serif;
+}
+
+/* body {
+  margin: 0 auto;
+  max-width: 1200px;
+} */
+#root {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-direction: column;
+  text-align: center;
+  justify-items: center;
+  align-items: center;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2rem;
   line-height: 1.1;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+.active:hover {
+  color: #000000;
+}
+
+.active::after {
+  content: '';
+  background-color: #5cc4e0;
+  height: 4px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.errorPage {
+  margin: 20px;
+}
+
+.errorPage h1 {
+  font-size: 3em;
+}
+
+.spinner {
+  animation: spinner 1s infinite linear;
+  width: 2.2em;
+  height: 2.2em;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
