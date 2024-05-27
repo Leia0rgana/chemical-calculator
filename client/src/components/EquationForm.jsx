@@ -1,6 +1,8 @@
 import styles from './EquationForm.module.css'
 import { useGetEquationMutation } from '../redux/elementsApi'
 import { useSelector, useDispatch } from 'react-redux'
+import { ImSpinner2 } from 'react-icons/im'
+import { IoArrowForwardOutline } from 'react-icons/io5'
 import {
   selectEquation,
   selectIsActiveEqualizeBtn,
@@ -9,7 +11,10 @@ import {
   removeSymbol,
   setBalancedEquation,
   resetBalancedEquation,
+  toggleEqualizeBtn,
 } from '../redux/slices/equationSlice'
+import { setError } from '../redux/slices/errorSlice'
+import { useState } from 'react'
 
 const EquationForm = () => {
   const equation = useSelector(selectEquation)
@@ -17,17 +22,24 @@ const EquationForm = () => {
   const balancedEquation = useSelector(selectBalancedEquation)
   const dispatch = useDispatch()
 
-  const [getEquation, { isLoading, error }] = useGetEquationMutation()
+  const [getEquation, { isLoading }] = useGetEquationMutation()
+  const [initialEquation, setInitialEquation] = useState('')
 
   const handleSubmit = async (e) => {
+    setInitialEquation(equation)
+
     dispatch(resetBalancedEquation())
     dispatch(resetEquation())
+    dispatch(toggleEqualizeBtn())
     e.preventDefault()
 
-    await getEquation({ equation: equation }) //запрос на балансировку реакции
+    await getEquation({ equation: equation })
       .unwrap()
       .then((payload) => dispatch(setBalancedEquation(payload.outChem)))
-      .catch((error) => console.log(error.status, error.data))
+      .catch((error) => {
+        dispatch(setError(error.data))
+        console.log(error)
+      })
   }
 
   const handleKeyDown = (e) => {
@@ -54,14 +66,16 @@ const EquationForm = () => {
         </button>
       </form>
       {isLoading ? (
-        <h2>Loading...</h2>
-      ) : error ? (
-        <h2>{`Error: ${error.data}`}</h2>
+        <ImSpinner2 className="spinner" />
       ) : (
         balancedEquation && (
-          <>
-            <h2>{balancedEquation}</h2>
-          </>
+          <div>
+            <h2 className={styles.equations}>
+              {initialEquation}
+              <IoArrowForwardOutline />
+              {balancedEquation}
+            </h2>
+          </div>
         )
       )}
     </>
