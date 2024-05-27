@@ -5,7 +5,7 @@ const ErrorPage = () => {
   console.error(error)
 
   return (
-    <div id="error-page">
+    <div className="errorPage">
       <h1>Ой!</h1>
       <p>Такой страницы нет</p>
       <Link to="/">Перейти на главную</Link>
