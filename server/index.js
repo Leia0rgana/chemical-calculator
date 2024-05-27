@@ -34,10 +34,6 @@ app.get('/', async (req, res) => {
     } else if (elements.lenght === 0) {
       return res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND)
     }
-    //else
-    //   return res
-    //     .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    //     .send(ReasonPhrases.INTERNAL_SERVER_ERROR)
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(error.message)
   }
@@ -62,12 +58,20 @@ app.post('/', async (req, res) => {
     const equation = req.body.equation
     const balancedEquation = balanceEq(equation)
 
-    if (balancedEquation.outChem) {
+    if (balancedEquation.outChem.includes('0'))
+      return res
+        .status(StatusCodes.NOT_ACCEPTABLE)
+        .send('Проверьте правильность введенной реакции')
+    else if (balancedEquation.outChem) {
       return res.status(StatusCodes.OK).send(balancedEquation)
     } else {
-      return res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND)
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .send('Необходимо ввести химическую реакцию')
     }
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(error.message)
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send('Внутренняя ошибка')
   }
 })
