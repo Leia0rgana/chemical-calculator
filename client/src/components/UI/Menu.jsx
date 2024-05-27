@@ -3,14 +3,22 @@ import styles from './Menu.module.css'
 const Menu = () => {
   return (
     <>
-      <header>
-        <NavLink to={'/'} className={`${styles.link} ${styles.logo}`}>
-          ChemReact
-        </NavLink>
-        <NavLink to={'/elementList'} className={styles.link}>
-          Элементы
-        </NavLink>
-      </header>
+      <div className={styles.header}>
+        <div className={styles.menu}>
+          <NavLink to={'/'} className={styles.link}>
+            <img
+              src="../public/assets/chem-react.svg"
+              width="32px"
+              height="32px"
+              style={{ margin: '0 7px' }}
+            />
+            <h1>ChemReact</h1>
+          </NavLink>
+          <NavLink to={'/element-list'} className={styles.link}>
+            Элементы
+          </NavLink>
+        </div>
+      </div>
       <Outlet />
     </>
   )
