@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import store from './redux/store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './components/routes/ErrorPage.jsx'
+import ElemetList from './components/routes/ElemetList.jsx'
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <App />,
+      },
+      {
+        path: 'element-list',
+        element: <ElemetList />,
       },
     ],
   },
