@@ -2,17 +2,12 @@ import { useRouteError, Link } from 'react-router-dom'
 
 const ErrorPage = () => {
   const error = useRouteError()
-
   return (
     <div className="errorPage">
       <h1>Ой! Что-то пошло не так</h1>
-      {error ? (
+      {error && (
         <p>
           <i>{error.statusText || error.message}</i>
-        </p>
-      ) : (
-        <p>
-          <i>Сервер не отвечает</i>
         </p>
       )}
       <Link to="/">Перейти на главную</Link>
