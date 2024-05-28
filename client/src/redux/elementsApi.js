@@ -9,6 +9,9 @@ export const elementsApi = createApi({
     getElements: build.query({
       query: () => '',
     }),
+    getElementByNumber: build.query({
+      query: (number) => `elements-list/${number}`,
+    }),
     getEquation: build.mutation({
       query: (body) => ({
         url: '',
@@ -19,4 +22,8 @@ export const elementsApi = createApi({
   }),
 })
 
-export const { useGetElementsQuery, useGetEquationMutation } = elementsApi
+export const {
+  useGetElementsQuery,
+  useLazyGetElementByNumberQuery,
+  useGetEquationMutation,
+} = elementsApi
