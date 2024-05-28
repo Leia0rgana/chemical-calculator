@@ -1,0 +1,55 @@
+.table {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  gap: 5px;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.element {
+  padding: 5px;
+  @apply border rounded-md hover:border-white hover:rounded-lg hover:shadow-lg active:ring-2 focus:ring-blue-600 focus:ring-opacity-50;
+}
+
+.blockList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+li {
+  list-style-type: none;
+  padding: 5px;
+  position: relative;
+}
+
+li::before {
+  margin: 10px;
+  content: '';
+  display: inline-block;
+  width: 15px;
+  height: 10px;
+  background-color: currentColor;
+  vertical-align: middle;
+}
+
+.s::before {
+  background-color: rgba(255, 88, 213, 0.508);
+}
+
+.p::before {
+  background-color: rgba(221, 237, 78, 0.508);
+}
+
+.d::before {
+  background-color: rgba(69, 146, 233, 0.508);
+}
+
+.f::before {
+  background-color: rgb(162, 54, 181, 0.508);
+}
+
+.container {
+  width: 60%;
+}

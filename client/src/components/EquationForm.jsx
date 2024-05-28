@@ -70,7 +70,7 @@ const EquationForm = () => {
         <ImSpinner2 className="spinner" />
       ) : (
         balancedEquation && (
-          <div>
+          <div className={styles.container}>
             <h2 className={styles.equations}>
               {initialEquation}
               <IoArrowForwardOutline />

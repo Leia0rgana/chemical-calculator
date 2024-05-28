@@ -7,13 +7,19 @@
 .input {
   flex-grow: 1;
   margin: 0 5px;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  @apply rounded border-2 border-slate-300 p-1;
 }
 
 .button {
   flex-shrink: 0;
   width: auto;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  @apply bg-slate-50 hover:bg-slate-100 shadow hover:shadow-lg p-1 border;
+}
+
+.container {
+  margin-top: 20px;
 }
 
 .equations {

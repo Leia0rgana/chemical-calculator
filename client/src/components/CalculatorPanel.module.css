@@ -6,9 +6,9 @@
 }
 
 .tableItem {
-  border: 1px solid #ccc;
   padding: 6px 0;
   margin: 5px;
   flex: 1 1 auto;
   font-size: 0.9rem;
+  @apply bg-slate-50 hover:bg-slate-100 shadow hover:shadow-lg border;
 }

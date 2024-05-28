@@ -1,3 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+svg {
+  display: inline;
+}
+
 * {
   font-family: 'El Messiri', sans-serif;
 }
@@ -6,6 +14,7 @@
   margin: 0 auto;
   max-width: 1200px;
 } */
+
 #root {
   display: flex;
   flex-direction: column;
@@ -18,6 +27,11 @@ h1 {
   font-size: 2rem;
   line-height: 1.1;
   margin: 0;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
 button {
@@ -39,7 +53,7 @@ button {
   transform: translateX(-50%);
 }
 .errorPage {
-  margin: 20px;
+  margin-top: 100px;
 }
 
 .errorPage h1 {
