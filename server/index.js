@@ -39,19 +39,22 @@ app.get('/', async (req, res) => {
   }
 })
 
-// app.post('/', async (req, res) => {
-//   try {
-//     const equation = req.body.symbol
-//     const element = await collection.findOne({ symbol: equation })
-//     if (element) {
-//       return res.status(StatusCodes.OK).send(element)
-//     } else if (element === null) {
-//       return res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND)
-//     }
-//   } catch (error) {
-//     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(error.message)
-//   }
-// })
+app.get('/elements-list/:number', async (req, res) => {
+  try {
+    const element = await collection.findOne({
+      number: parseInt(req.params.number),
+    })
+    if (element) {
+      return res.status(StatusCodes.OK).send(element)
+    } else {
+      console.log(ReasonPhrases.NOT_FOUND)
+      return res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND)
+    }
+  } catch (error) {
+    console.log(error)
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(error.message)
+  }
+})
 
 app.post('/', async (req, res) => {
   try {
