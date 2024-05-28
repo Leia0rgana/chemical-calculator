@@ -9,28 +9,13 @@ import {
   selectIsActiveEqualizeBtn,
 } from '../redux/slices/equationSlice'
 import { useEffect } from 'react'
+import { getElementLocation } from '../data/lanthanoidAndActinoid'
 
-let lanthanoidAndActinoid = []
-
-for (let i = 57; i <= 71; i += 1) {
-  lanthanoidAndActinoid.push(i)
-}
-
-for (let i = 89; i <= 103; i += 1) {
-  lanthanoidAndActinoid.push(i)
-}
-
-const Table = ({ isExtended }) => {
+const Table = () => {
   const navigate = useNavigate()
-
   const { data, isLoading, error } = useGetElementsQuery()
   const isActiveEqualizeBtn = useSelector(selectIsActiveEqualizeBtn)
   const dispatch = useDispatch()
-
-  const handleClick = (symbol) => {
-    dispatch(setEquation(symbol))
-    !isActiveEqualizeBtn && dispatch(toggleEqualizeBtn())
-  }
 
   useEffect(() => {
     if (error) {
@@ -39,18 +24,11 @@ const Table = ({ isExtended }) => {
   }),
     [error]
 
-  const getElementLocation = (number, period, group) => {
-    if (lanthanoidAndActinoid.includes(number)) {
-      return {
-        gridColumn: group + 1,
-        gridRow: period + 2,
-      }
-    } else
-      return {
-        gridColumn: group,
-        gridRow: period,
-      }
+  const handleClick = (symbol) => {
+    dispatch(setEquation(symbol))
+    !isActiveEqualizeBtn && dispatch(toggleEqualizeBtn())
   }
+
   if (isLoading) {
     return <ImSpinner2 className="spinner" />
   }
@@ -70,18 +48,7 @@ const Table = ({ isExtended }) => {
               )}
               onClick={() => handleClick(element.symbol)}
             >
-              {isExtended ? (
-                <>
-                  <div>{element.number}</div>
-                  <div>{element.symbol}</div>
-                  <div>{parseFloat(element.atomic_mass).toFixed(2)}</div>
-                </>
-              ) : (
-                <>
-                  <div>{element.number}</div>
-                  <div>{element.symbol}</div>
-                </>
-              )}
+              <div>{element.symbol}</div>
             </button>
           )
         })}
