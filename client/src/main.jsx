@@ -7,6 +7,7 @@ import store from './redux/store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './components/routes/ErrorPage.jsx'
 import ElemetList from './components/routes/ElemetList.jsx'
+import Element from './components/routes/Element.jsx'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: 'element-list',
         element: <ElemetList />,
+      },
+      {
+        path: 'element-list/:number',
+        element: <Element />,
       },
     ],
   },
