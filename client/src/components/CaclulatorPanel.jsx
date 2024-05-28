@@ -10,6 +10,7 @@ import {
   removeSymbol,
   toggleEqualizeBtn,
   resetBalancedEquation,
+  resetInitialEquation,
 } from '../redux/slices/equationSlice'
 
 const DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '+', '=']
@@ -38,6 +39,7 @@ const CaclulatorPanel = () => {
 
   const handleClearBtnClick = () => {
     dispatch(resetEquation())
+    dispatch(resetInitialEquation())
     dispatch(resetBalancedEquation())
     isActiveEqualizeBtn && dispatch(toggleEqualizeBtn())
   }

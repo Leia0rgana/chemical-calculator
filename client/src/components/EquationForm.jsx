@@ -12,21 +12,22 @@ import {
   setBalancedEquation,
   resetBalancedEquation,
   toggleEqualizeBtn,
+  selectInitialEquation,
+  setInitialEquation,
 } from '../redux/slices/equationSlice'
 import { setError } from '../redux/slices/errorSlice'
-import { useState } from 'react'
 
 const EquationForm = () => {
   const equation = useSelector(selectEquation)
   const isActiveEqualizeBtn = useSelector(selectIsActiveEqualizeBtn)
   const balancedEquation = useSelector(selectBalancedEquation)
+  const initialEquation = useSelector(selectInitialEquation)
   const dispatch = useDispatch()
 
   const [getEquation, { isLoading }] = useGetEquationMutation()
-  const [initialEquation, setInitialEquation] = useState('')
 
   const handleSubmit = async (e) => {
-    setInitialEquation(equation)
+    dispatch(setInitialEquation(equation))
 
     dispatch(resetBalancedEquation())
     dispatch(resetEquation())

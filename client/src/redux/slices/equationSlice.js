@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  equation: '',
+  inputEquation: '',
+  initialEquation: '',
   balancedEquation: '',
   isActiveEqualizeBtn: false,
 }
@@ -11,16 +12,25 @@ export const equationSlice = createSlice({
   name: 'equation',
   reducers: {
     setEquation: (state, action) => {
-      state.equation = state.equation + action.payload
+      state.inputEquation = state.inputEquation + action.payload
     },
     resetEquation: (state) => {
-      state.equation = ''
+      state.inputEquation = ''
     },
     removeSymbol: (state) => {
-      state.equation = state.equation.slice(0, state.equation.length - 1) // TODO remove WHOLE element
+      state.inputEquation = state.inputEquation.slice(
+        0,
+        state.inputEquation.length - 1
+      ) // TODO remove WHOLE element
     },
     toggleEqualizeBtn: (state) => {
       state.isActiveEqualizeBtn = !state.isActiveEqualizeBtn
+    },
+    setInitialEquation: (state, action) => {
+      state.initialEquation = action.payload
+    },
+    resetInitialEquation: (state) => {
+      state.initialEquation = ''
     },
     setBalancedEquation: (state, action) => {
       state.balancedEquation = action.payload
@@ -38,10 +48,13 @@ export const {
   toggleEqualizeBtn,
   setBalancedEquation,
   resetBalancedEquation,
+  setInitialEquation,
+  resetInitialEquation,
 } = equationSlice.actions
-export const selectEquation = (state) => state.equation.equation
+export const selectEquation = (state) => state.equation.inputEquation
 export const selectIsActiveEqualizeBtn = (state) =>
   state.equation.isActiveEqualizeBtn
 export const selectBalancedEquation = (state) => state.equation.balancedEquation
+export const selectInitialEquation = (state) => state.equation.initialEquation
 
 export default equationSlice.reducer
