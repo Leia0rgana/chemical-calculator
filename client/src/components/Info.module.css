@@ -1,0 +1,19 @@
+.ul {
+  display: flex;
+  flex-direction: column;
+  place-items: flex-start;
+  list-style: disc;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+.item {
+  padding-bottom: 10px;
+}
