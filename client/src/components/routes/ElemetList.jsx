@@ -1,16 +1,13 @@
 import { useGetElementsQuery } from '../../redux/elementsApi'
-import { setElementNumber } from '../../redux/slices/elementSlice'
 import styles from './ElementList.module.css'
 import { ImSpinner2 } from 'react-icons/im'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getElementLocation } from '../../data/lanthanoidAndActinoid'
-import { useDispatch } from 'react-redux'
 
 const ElemetList = () => {
   const navigate = useNavigate()
   const { data, isLoading, error } = useGetElementsQuery()
-  const dispatch = useDispatch()
 
   useEffect(() => {
     if (error) {
@@ -20,7 +17,6 @@ const ElemetList = () => {
     [error]
 
   const handleClick = (number) => {
-    dispatch(setElementNumber(number))
     navigate(`/element-list/${number}`)
   }
 
@@ -43,7 +39,6 @@ const ElemetList = () => {
       <h2 style={{ margin: '20px 0' }}>
         Периодическая система химических элементов
       </h2>
-      <BlockClassification />
       <div className={styles.table}>
         {data &&
           data.map((element) => {
@@ -67,6 +62,7 @@ const ElemetList = () => {
             )
           })}
       </div>
+      <BlockClassification />
     </>
   )
 }
@@ -75,10 +71,10 @@ const BlockClassification = () => {
   return (
     <div className={styles.container}>
       <ul className={styles.blockList}>
-        <li className={styles.s}>s-элементы</li>
-        <li className={styles.p}>p-элементы</li>
-        <li className={styles.d}>d-элементы</li>
-        <li className={styles.f}>f-элементы</li>
+        <li className={`${styles.li} ${styles.s}`}>s-элементы</li>
+        <li className={`${styles.li} ${styles.p}`}>p-элементы</li>
+        <li className={`${styles.li} ${styles.d}`}>d-элементы</li>
+        <li className={`${styles.li} ${styles.f}`}>f-элементы</li>
       </ul>
     </div>
   )

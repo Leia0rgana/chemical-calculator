@@ -54,6 +54,7 @@ const EquationForm = () => {
           className={styles.input}
           type="text"
           name="equation"
+          placeholder="Введите реакцию"
           value={equation}
           readOnly={true}
           onKeyDown={handleKeyDown}

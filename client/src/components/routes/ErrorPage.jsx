@@ -10,7 +10,9 @@ const ErrorPage = () => {
           <i>{error.statusText || error.message}</i>
         </p>
       )}
-      <Link to="/">Перейти на главную</Link>
+      <Link to="/" style={{ textDecoration: 'underline', color: '#5CC4E0' }}>
+        Перейти на главную
+      </Link>
     </div>
   )
 }

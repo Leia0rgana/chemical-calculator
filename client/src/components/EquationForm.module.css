@@ -15,7 +15,11 @@
   flex-shrink: 0;
   width: auto;
   font-size: 1.1rem;
-  @apply bg-slate-50 hover:bg-slate-100 shadow hover:shadow-lg p-1 border;
+  @apply bg-slate-50 p-1 border;
+}
+
+.button:not([disabled]) {
+  @apply shadow-lg shadow-blue-500/50 hover:shadow-blue-800/50 p-1 border;
 }
 
 .container {

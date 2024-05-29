@@ -2,6 +2,7 @@
   width: 100%;
   border-bottom: 1px solid #dee2e6;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-bottom: 30px;
 }
 
 .menu {
@@ -18,7 +19,7 @@
   padding: 0 10px;
   margin: 10px;
   text-decoration: none;
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   font-weight: 500;
   color: #000;
   transition: color 0.3s;
@@ -44,4 +45,16 @@
 .link:hover::after {
   color: #5cc4e0;
   width: 100%;
+}
+
+@media screen and (max-width: 910px) {
+  .menu {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .menu {
+    flex-direction: column;
+  }
 }
