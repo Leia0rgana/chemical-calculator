@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="App">
       <Error />
-      <h1 style={{ marginBottom: '10px' }}> Балансировка химических реакций</h1>
+      <h1> Балансировка химических реакций</h1>
       <h2 style={{ margin: '10px' }}>
         <Link
           to="#info"

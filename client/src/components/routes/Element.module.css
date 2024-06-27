@@ -10,7 +10,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 40px;
   @apply border rounded-md hover:shadow-lg;
 }
 
@@ -18,7 +17,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
-  padding-top: 40px;
+  padding: 40px 0;
   width: 100%;
 }
 
