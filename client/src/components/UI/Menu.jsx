@@ -7,7 +7,7 @@ const Menu = () => {
         <div className={styles.menu}>
           <NavLink to={'/'} className={styles.link}>
             <img
-              src="../public/assets/chem-react.svg"
+              src="/assets/chem-react.svg"
               width="32px"
               height="32px"
               style={{ margin: '0 7px' }}

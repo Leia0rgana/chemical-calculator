@@ -17,7 +17,7 @@ const Info = () => {
           style={{ display: 'flex', alignItems: 'center' }}
         >
           Это важно
-          <img src="./public/assets/important.svg" width="27px" height="27px" />
+          <img src="/assets/important.svg" width="27px" height="27px" />
         </h2>
         <ul className={`${styles.item} ${styles.ul}`}>
           <li>
