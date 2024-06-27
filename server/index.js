@@ -4,10 +4,9 @@ const MongoClient = require('mongodb').MongoClient
 const StatusCodes = require('http-status-codes').StatusCodes
 const ReasonPhrases = require('http-status-codes').ReasonPhrases
 const balanceEq = require('chem-eb')
+require('dotenv').config()
 
 const PORT = 3000
-const MONGO_URI = 'mongodb+srv://user123:pass321@cluster0.tq8mvyq.mongodb.net/'
-
 const app = express()
 
 app.use(express.json())
@@ -15,7 +14,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 app.listen(PORT, () => console.log(`listening port ${PORT}`))
 
-const client = new MongoClient(MONGO_URI)
+const client = new MongoClient(process.env.MONGO_URI)
 
 client
   .connect()
