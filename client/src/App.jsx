@@ -34,7 +34,7 @@ function App() {
       <div className="container">
         <EquationForm />
         <CaclulatorPanel />
-        <Table isExtended={false} />
+        <Table />
       </div>
       <div id="info">
         <Info />
