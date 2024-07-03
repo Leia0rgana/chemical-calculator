@@ -1,6 +1,6 @@
 import './App.css'
 import EquationForm from './components/EquationForm'
-import Table from './components/Table'
+import Table from './components/CalculatorTable'
 import CaclulatorPanel from './components/CaclulatorPanel'
 import Error from './components/UI/Error'
 import { Link, useLocation } from 'react-router-dom'
@@ -12,9 +12,9 @@ function App() {
 
   useEffect(() => {
     if (location.hash) {
-      const element = document.querySelector(location.hash)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+      const itemOnPage = document.querySelector(location.hash)
+      if (itemOnPage) {
+        itemOnPage.scrollIntoView({ behavior: 'smooth' })
       }
     }
   }, [location])

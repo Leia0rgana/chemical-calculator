@@ -1,6 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '../store.ts'
 
-const initialState = {
+interface IEquationState {
+  inputEquation: string
+  initialEquation: string
+  balancedEquation: string
+  isActiveEqualizeBtn: boolean
+}
+
+const initialState: IEquationState = {
   inputEquation: '',
   initialEquation: '',
   balancedEquation: '',
@@ -11,7 +19,7 @@ export const equationSlice = createSlice({
   initialState,
   name: 'equation',
   reducers: {
-    setEquation: (state, action) => {
+    setEquation: (state, action: PayloadAction<string>) => {
       state.inputEquation = state.inputEquation + action.payload
     },
     resetEquation: (state) => {
@@ -21,18 +29,18 @@ export const equationSlice = createSlice({
       state.inputEquation = state.inputEquation.slice(
         0,
         state.inputEquation.length - 1
-      ) // TODO remove WHOLE element
+      )
     },
     toggleEqualizeBtn: (state) => {
       state.isActiveEqualizeBtn = !state.isActiveEqualizeBtn
     },
-    setInitialEquation: (state, action) => {
+    setInitialEquation: (state, action: PayloadAction<string>) => {
       state.initialEquation = action.payload
     },
     resetInitialEquation: (state) => {
       state.initialEquation = ''
     },
-    setBalancedEquation: (state, action) => {
+    setBalancedEquation: (state, action: PayloadAction<string>) => {
       state.balancedEquation = action.payload
     },
     resetBalancedEquation: (state) => {
@@ -51,10 +59,12 @@ export const {
   setInitialEquation,
   resetInitialEquation,
 } = equationSlice.actions
-export const selectEquation = (state) => state.equation.inputEquation
-export const selectIsActiveEqualizeBtn = (state) =>
+export const selectEquation = (state: RootState) => state.equation.inputEquation
+export const selectIsActiveEqualizeBtn = (state: RootState) =>
   state.equation.isActiveEqualizeBtn
-export const selectBalancedEquation = (state) => state.equation.balancedEquation
-export const selectInitialEquation = (state) => state.equation.initialEquation
+export const selectBalancedEquation = (state: RootState) =>
+  state.equation.balancedEquation
+export const selectInitialEquation = (state: RootState) =>
+  state.equation.initialEquation
 
 export default equationSlice.reducer

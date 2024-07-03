@@ -6,16 +6,16 @@ const ReasonPhrases = require('http-status-codes').ReasonPhrases
 const balanceEq = require('chem-eb')
 require('dotenv').config()
 
-const PORT = 3000
 const app = express()
-const uri = process.env.MONGO_URI
+const PORT = process.env.PORT
+const URI = process.env.MONGO_URI
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors())
 app.listen(PORT, () => console.log(`listening port ${PORT}`))
 
-const client = new MongoClient(uri)
+const client = new MongoClient(URI)
 
 client
   .connect()

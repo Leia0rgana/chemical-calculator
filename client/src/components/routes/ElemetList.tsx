@@ -3,7 +3,8 @@ import styles from './ElementList.module.css'
 import { ImSpinner2 } from 'react-icons/im'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getElementLocation } from '../../data/lanthanoidAndActinoid'
+import { getElementLocation } from '../../data/lanthanoidAndActinoid.ts'
+import { Block } from '../../types/data'
 
 const ElemetList = () => {
   const navigate = useNavigate()
@@ -16,11 +17,11 @@ const ElemetList = () => {
   }),
     [error]
 
-  const handleClick = (number) => {
+  const handleClick = (number: number): void => {
     navigate(`/element-list/${number}`)
   }
 
-  const setElementColor = (block) => {
+  const setElementColor = (block: Block) => {
     if (block === 's') return { backgroundColor: 'rgb(255, 88, 213, 0.508)' }
     else if (block === 'p')
       return { backgroundColor: 'rgb(221, 237, 78, 0.508)' }
@@ -57,7 +58,7 @@ const ElemetList = () => {
               >
                 <div>{element.number}</div>
                 <div>{element.symbol}</div>
-                <div>{parseFloat(element.atomic_mass).toFixed(2)}</div>
+                <div>{element.atomic_mass.toFixed(2)}</div>
               </button>
             )
           })}

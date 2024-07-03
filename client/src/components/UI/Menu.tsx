@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import styles from './Menu.module.css'
+
 const Menu = () => {
   return (
     <>
