@@ -1,6 +1,6 @@
 import styles from './EquationForm.module.css'
 import { useGetEquationMutation } from '../redux/elementsApi'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector, useAppDispatch } from '../hooks'
 import { ImSpinner2 } from 'react-icons/im'
 import { IoArrowForwardOutline } from 'react-icons/io5'
 import {
@@ -17,16 +17,23 @@ import {
 } from '../redux/slices/equationSlice'
 import { setError } from '../redux/slices/errorSlice'
 
+interface IError {
+  status: string
+  originalStatus: number
+  data: string
+  error: string
+}
+
 const EquationForm = () => {
-  const equation = useSelector(selectEquation)
-  const isActiveEqualizeBtn = useSelector(selectIsActiveEqualizeBtn)
-  const balancedEquation = useSelector(selectBalancedEquation)
-  const initialEquation = useSelector(selectInitialEquation)
-  const dispatch = useDispatch()
+  const equation = useAppSelector(selectEquation)
+  const isActiveEqualizeBtn = useAppSelector(selectIsActiveEqualizeBtn)
+  const balancedEquation = useAppSelector(selectBalancedEquation)
+  const initialEquation = useAppSelector(selectInitialEquation)
+  const dispatch = useAppDispatch()
 
   const [getEquation, { isLoading }] = useGetEquationMutation()
 
-  const handleSubmit = async (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     dispatch(setInitialEquation(equation))
 
     dispatch(resetBalancedEquation())
@@ -37,13 +44,13 @@ const EquationForm = () => {
     await getEquation({ equation: equation })
       .unwrap()
       .then((payload) => dispatch(setBalancedEquation(payload.outChem)))
-      .catch((error) => {
+      .catch((error: IError) => {
         dispatch(setError(error.data))
         console.log(error)
       })
   }
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Backspace' && equation) dispatch(removeSymbol()) //TODO
   }
 
@@ -61,7 +68,7 @@ const EquationForm = () => {
         />
         <button
           className={styles.button}
-          disabled={isActiveEqualizeBtn ? null : 'disabled'}
+          disabled={isActiveEqualizeBtn ? false : true}
         >
           {' '}
           Уравнять

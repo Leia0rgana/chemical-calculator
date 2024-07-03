@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from './Card.module.css'
+import { IElementInfo } from '../../types/data'
 
-const Card = ({ cardInfo }) => {
+const Card = ({ cardInfo }: { cardInfo: Array<IElementInfo> }) => {
   return (
     <div className={styles.block}>
       {cardInfo.map((item, index) => (

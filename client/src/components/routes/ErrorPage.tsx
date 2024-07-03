@@ -1,7 +1,12 @@
 import { useRouteError, Link } from 'react-router-dom'
 
+interface IRouteError {
+  statusText?: string
+  message?: string
+}
+
 const ErrorPage = () => {
-  const error = useRouteError()
+  const error = useRouteError() as IRouteError
   return (
     <div className="errorPage">
       <h1>Ой! Что-то пошло не так</h1>

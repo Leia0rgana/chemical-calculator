@@ -1,5 +1,5 @@
 import styles from './CalculatorPanel.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppSelector, useAppDispatch } from '../hooks'
 import { RiDeleteBack2Line } from 'react-icons/ri'
 import { GrPowerReset } from 'react-icons/gr'
 import {
@@ -16,35 +16,35 @@ import {
 const DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '+', '=']
 
 const CaclulatorPanel = () => {
-  const equation = useSelector(selectEquation)
-  const isActiveEqualizeBtn = useSelector(selectIsActiveEqualizeBtn)
-  const dispatch = useDispatch()
+  const equation = useAppSelector(selectEquation)
+  const isActiveEqualizeBtn = useAppSelector(selectIsActiveEqualizeBtn)
+  const dispatch = useAppDispatch()
 
-  const isValidInput = (symbol) => {
+  const isValidInput = (symbol: string | number): boolean => {
     if (equation) {
       if (symbol.toString().match(/[+=]/g) && equation.slice(-1).match(/[+=]/g))
         return false
       else return true
     } else {
-      if (!symbol.match(/[a-z]/i)) return false
+      if (!symbol.toString().match(/[a-z]/i)) return false
       else return true
     }
   }
-  const handleSymbolBtnClick = (symbol) => {
+  const handleSymbolBtnClick = (symbol: string | number): void => {
     if (isValidInput(symbol)) {
-      dispatch(setEquation(symbol))
+      dispatch(setEquation(symbol.toString()))
       !isActiveEqualizeBtn && dispatch(toggleEqualizeBtn())
     } else return
   }
 
-  const handleClearBtnClick = () => {
+  const handleClearBtnClick = (): void => {
     dispatch(resetEquation())
     dispatch(resetInitialEquation())
     dispatch(resetBalancedEquation())
     isActiveEqualizeBtn && dispatch(toggleEqualizeBtn())
   }
 
-  const handleRemoveBtnClick = () => {
+  const handleRemoveBtnClick = (): void => {
     dispatch(removeSymbol())
     equation.length === 1 && dispatch(toggleEqualizeBtn())
   }

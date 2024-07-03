@@ -4,13 +4,7 @@ import { useLazyGetElementByNumberQuery } from '../../redux/elementsApi'
 import { ImSpinner2 } from 'react-icons/im'
 import { useParams, useNavigate } from 'react-router-dom'
 import Card from '../UI/Card'
-
-class ElementInfo {
-  constructor(title, value) {
-    this.title = title
-    this.value = value
-  }
-}
+import { IElementInfo } from '../../types/data'
 
 const Element = () => {
   const { number } = useParams()
@@ -18,8 +12,8 @@ const Element = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (number) {
-      trigger(number)
+    if (typeof number === 'string') {
+      trigger(parseInt(number))
     }
 
     if (error) {
@@ -27,7 +21,7 @@ const Element = () => {
     }
   }, [trigger, number, navigate, error])
 
-  const convertCPKtoRGB = (hex) => {
+  const convertCPKtoRGB = (hex: string): string => {
     const bigint = parseInt(hex, 16)
     const r = (bigint >> 16) & 255
     const g = (bigint >> 8) & 255
@@ -36,29 +30,29 @@ const Element = () => {
     return `rgb(${r}, ${g}, ${b})`
   }
 
-  let elementInfo
+  let elementInfo: Array<IElementInfo[]> | undefined
 
   if (isLoading) {
     return <ImSpinner2 className="spinner" />
   } else if (data) {
     elementInfo = [
       [
-        new ElementInfo('Номер', data.number),
-        new ElementInfo('Атомная масса', `${data.atomic_mass} а.е.м.`),
+        { title: 'Номер', value: data.number },
+        { title: 'Атомная масса', value: `${data.atomic_mass} а.е.м.` },
       ],
       [
-        new ElementInfo('Группа', data.group),
-        new ElementInfo('Период', data.period),
-        new ElementInfo('Блок', data.block),
+        { title: 'Группа', value: data.group },
+        { title: 'Период', value: data.period },
+        { title: 'Блок', value: data.block },
       ],
       [
-        new ElementInfo('Плотность', `${data.density} г/см³`),
-        new ElementInfo('Температура кипения', `${data.boil} K`),
-        new ElementInfo('Температура плавления', `${data.melt} K`),
+        { title: 'Плотность', value: `${data.density} г/см³` },
+        { title: 'Температура кипения', value: `${data.boil} K` },
+        { title: 'Температура плавления', value: `${data.melt} K` },
       ],
       [
-        new ElementInfo('Категория', data.category),
-        new ElementInfo('Агрегатное состояние', data.phase),
+        { title: 'Категория', value: data.category },
+        { title: 'Агрегатное состояние', value: data.phase },
       ],
     ]
   }
@@ -73,7 +67,7 @@ const Element = () => {
             >
               <div className={styles.numbers}>
                 <p>{data.number}</p>
-                <p>{parseFloat(data.atomic_mass).toFixed(2)}</p>
+                <p>{data.atomic_mass.toFixed(2)}</p>
               </div>
               <div className={styles.symbol}>{data.symbol}</div>
               <i>{data.name}</i>
@@ -83,9 +77,10 @@ const Element = () => {
             >{`${data.summary} Discovered by ${data.discovered_by}.`}</div>
           </div>
           <div className={` ${styles.subcontainer}`}>
-            {elementInfo.map((item, index) => (
-              <Card cardInfo={item} key={index} />
-            ))}
+            {elementInfo &&
+              elementInfo.map((item, index) => (
+                <Card cardInfo={item} key={index} />
+              ))}
           </div>
         </div>
       )}{' '}
